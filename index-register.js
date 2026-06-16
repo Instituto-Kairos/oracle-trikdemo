@@ -81,28 +81,6 @@ client.once('clientReady', () => {
 });
 
 //
-// -> ping? pong! -------------------------------------------------------------------
-//
-
-client.on('interactionCreate', async interaction => {
-  if (!interaction.isChatInputCommand()) return;
-
-  if (interaction.commandName === 'ping') {
-    const sent = await interaction.reply({
-        content: '🏓 Pong...',
-        fetchReply: true
-    });
-
-    const latency =
-      sent.createdTimestamp - interaction.createdTimestamp;
-
-    await interaction.editReply(
-      `🏓 Pong!\nLatência: ${latency}ms`
-    );
-  }
-});
-
-//
 // -> task counter ------------------------------------------------------------------
 //
 

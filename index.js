@@ -17,9 +17,9 @@ const {
 // -> config --------------------------------------------------
 //
 
-const token = "SEU_TOKEN";
-const clientId = "SEU_CLIENT_ID";
-const guildId = "SEU_GUILD_ID";
+const token = process.env.DISCORD_TOKEN;
+const clientId = process.env.CLIENT_ID;
+const guildId = process.env.GUILD_ID;
 
 const oracle = new Client({
     intents: [    
@@ -78,6 +78,36 @@ const rest = new REST({
 })();
 
 //
+// -> events --------------------------------------------------
+//
+
+
+const eventsPath =
+    path.join(__dirname, "events");
+
+const eventFiles =
+    fs.readdirSync(eventsPath)
+    .filter(
+        file => file.endsWith(".js")
+    );
+
+for (const file of eventFiles) {
+
+    const filePath =
+        path.join(eventsPath, file);
+
+    const event =
+        require(filePath);
+
+    oracle.on(
+        event.name,
+        (...args) =>
+            event.execute(...args)
+    );
+
+}
+
+//
 // -> ready -------------------------------------------------
 //
 
@@ -98,7 +128,7 @@ oracle.on(
             !interaction.isChatInputCommand()
         ) return;
         const command =
-            client.commands.get(
+            oracle.commands.get(
                 interaction.commandName
             );
         if (!command) return;
@@ -124,7 +154,6 @@ oracle.on(
         }
     }
 );
-
 
 //
 // -> start ---------------------------------------------------
