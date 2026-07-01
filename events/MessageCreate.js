@@ -1,8 +1,8 @@
 const sceneHandler =
-    require("../services/sceneHandler");
+    require("../services/SceneHandler");
 
 const taskCounter =
-    require("../services/taskCounter");
+    require("../services/TaskManager");
 
 module.exports = {
 

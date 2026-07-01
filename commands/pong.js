@@ -3,8 +3,7 @@ const { SlashCommandBuilder } = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ping')
-        .setDescription('Responde com pong e latência')
-        .toJSON(),
+        .setDescription('Responde com pong e latência'),
     async execute(interaction) {
         if (!interaction.isChatInputCommand()) return;
 
